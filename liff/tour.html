@@ -1,0 +1,55 @@
+<html>
+<head>
+    <meta charset="UTF-8" />
+    <meta content="width=device-width,initial-scale=1" name="viewport" />
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="//stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="//stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+
+    <link rel="stylesheet" href="/style.css" >
+    <title>ツアーの詳細</title>
+    <script>
+      window.onload = function onLoad() {
+        // URLパラメータ取得
+        var parm = location.search.substring(1).split("&");
+        var planId = parm[0].split("=")[1];
+        $.get("/api/plan?id=" + planId, function (data) {
+          var plan = data.plan;
+          $("#tourImg").attr("src", plan.tourImageUrl);
+          $("#name").text(plan.tour);
+          $("#place").text(plan.place);
+          $("#price").text(plan.price);
+          $("#airlineImg").attr("src", plan.airlineImageUrl);
+          $("#airlineName").text(plan.airline);
+          $("#hotelImg").attr("src", plan.hotelImageUrl);
+          $("#hotelName").text(plan.hotel);
+        });
+      }
+    </script>
+</head>
+<body>
+<!-- ツアーの日程等について -->
+<div class="wrapper">
+    <div class="title" id="name"></div>
+    <div id="place"></div>
+    <div id="price"></div>
+</div>
+<div class="image-wrapper">
+    <img src="" id="tourImg"/>
+</div>
+<div class="wrapper">
+    <div class="title" id="airlineName"></div>
+</div>
+<div class="image-wrapper">
+    <img src="" id="airlineImg"/>
+</div>
+<div class="wrapper">
+    <div class="title" id="hotelName"></div>
+</div>
+<div class="image-wrapper">
+    <img src="" id="hotelImg"/>
+</div>
+</body>
+</html>

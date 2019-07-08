@@ -1,0 +1,81 @@
+<html>
+<head>
+    <meta charset="UTF-8" />
+    <meta content="width=device-width,initial-scale=1" name="viewport" />
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="//stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="//stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+
+    <link rel="stylesheet" href="/style.css" >
+    <title>申込情報を入力</title>
+    <script src="https://d.line-scdn.net/liff/1.0/sdk.js"></script>
+    <script>
+      window.onload = function (e) {
+        // sendにclickイベントを追加
+        document.getElementById('send').addEventListener('click', function () {
+          var name = $("input[name='name']").val();
+          var number = $("select[name='number']").val();
+          var date = $("input[name='date']").val();
+          let text = "お支払い\n" +
+                  "--------\n" +
+                  "お名前: " + name + "\n" +
+                  "人数: " + number + "\n" +
+                  "日付: " + date;
+          console.log(text);
+          // BOTへ送信
+          liff
+            .sendMessages([
+              {
+                type: 'text',
+                text: text
+              }
+            ])
+            .then(function () {
+              liff.closeWindow();
+            })
+            .catch(function (error) {
+              window.alert('もう一度入力してください。');
+            });
+        });
+      };
+    </script>
+</head>
+<body>
+<!-- 申し込みに必要な情報を入力 -->
+<div class="container">
+    <form>
+        <div class="form-group">
+            <label for="name">お名前</label>
+            <input id="name" type="text" name="name" class="form-control" placeholder="名前を入力して下さい">
+        </div>
+        <div class="form-group">
+            <label for="number">人数</label>
+            <select id="number" class="form-control" name="number">
+                <option>1</option>
+                <option>2</option>
+                <option>3</option>
+                <option>4</option>
+                <option>5</option>
+                <option>6</option>
+                <option>7</option>
+                <option>8</option>
+                <option>9</option>
+                <option>10</option>
+                <option>11</option>
+                <option>12</option>
+                <option>13</option>
+                <option>14</option>
+                <option>15</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="date">日付</label>
+            <input id="date" type="date" name="date" class="form-control" placeholder="日付を入力して下さい" min="1" max="10">
+        </div>
+        <button id="send" class="btn btn-primary btn-lg btn-block" type="button">申込</button>
+    </form>
+</div>
+</body>
+</html>
